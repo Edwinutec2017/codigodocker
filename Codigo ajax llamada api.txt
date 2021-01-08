@@ -1,0 +1,21 @@
+ $.ajax({
+        url: urldocplanillassepp,
+        method: "POST",
+        beforeSend: function () {
+            MostrarLoading();
+        },
+        data: { idlog: idlog },
+        success: function (result) {
+            if (result.IsFail == false) {
+                DownloadDoc(result.Documento, result.Nombre);
+                OcultarLoading();
+            } else {
+                OcultarLoading();
+                $('#infoplanilla').text(result.Mensaje);
+                $('#AlertPlanillas').modal('show');
+            }
+        },
+        complete: function () {
+            OcultarLoading();
+        }
+    });
